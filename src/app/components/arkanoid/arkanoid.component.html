@@ -1,0 +1,26 @@
+<canvas #arkanoidCanvas></canvas>
+
+<div
+  appPaddle
+  #leftPaddle
+  position="left"
+  color="red"
+  (paddle)="gameService.setPaddleA($event)"
+></div>
+
+<div
+  appPaddle
+  #rightPaddle
+  position="right"
+  color="blue"
+  (paddle)="gameService.setPaddleB($event)"
+></div>
+
+<div appBall (ball)="gameService.setBall($event)"></div>
+
+<div
+  appScore
+  [scoreA]="gameService.scoreA"
+  [scoreB]="gameService.scoreB"
+  (scoreText)="gameService.setScoreText($event)"
+></div>
