@@ -2,6 +2,13 @@ import { Injectable } from '@angular/core';
 import { interval, tap } from 'rxjs';
 import { fabric } from 'fabric';
 
+enum KeyCodes {
+  KeyW = 'KeyW',
+  KeyS = 'KeyS',
+  ArrowUp = 'ArrowUp',
+  ArrowDown = 'ArrowDown',
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,6 +27,11 @@ export class GameService {
   public paddleBMovingUp = false;
   public paddleBMovingDown = false;
 
+  private static readonly FRAMES_PER_SECOND = 60;
+  private static readonly INTERVAL_MS = 1000 / GameService.FRAMES_PER_SECOND;
+  private static readonly BALL_SPEED_FACTOR = 0.005;
+  private static readonly PADDLE_SPEED_FACTOR = 0.01;
+
   constructor() {}
 
   public startGame(): void {
@@ -28,7 +40,7 @@ export class GameService {
     let ballVelocityX = ballSpeed;
     let ballVelocityY = ballSpeed;
 
-    interval(1000 / 60)
+    interval(GameService.INTERVAL_MS)
       .pipe(
         tap(() => {
           this.moveBall(ballVelocityX, ballVelocityY);
@@ -45,27 +57,33 @@ export class GameService {
 
   public handleKeyEvent(event: KeyboardEvent, isKeyDown: boolean): void {
     switch (event.code) {
-      case 'KeyW':
+      case KeyCodes.KeyW:
         this.paddleAMovingUp = isKeyDown;
         break;
-      case 'KeyS':
+      case KeyCodes.KeyS:
         this.paddleAMovingDown = isKeyDown;
         break;
-      case 'ArrowUp':
+      case KeyCodes.ArrowUp:
         this.paddleBMovingUp = isKeyDown;
         break;
-      case 'ArrowDown':
+      case KeyCodes.ArrowDown:
         this.paddleBMovingDown = isKeyDown;
         break;
     }
   }
 
   private calculateBallSpeed(): number {
-    return Math.min(this.canvas.width, this.canvas.height) * 0.005;
+    return (
+      Math.min(this.canvas.width, this.canvas.height) *
+      GameService.BALL_SPEED_FACTOR
+    );
   }
 
   private calculatePaddleSpeed(): number {
-    return Math.min(this.canvas.width, this.canvas.height) * 0.01;
+    return (
+      Math.min(this.canvas.width, this.canvas.height) *
+      GameService.PADDLE_SPEED_FACTOR
+    );
   }
 
   private moveBall(ballVelocityX: number, ballVelocityY: number): void {
