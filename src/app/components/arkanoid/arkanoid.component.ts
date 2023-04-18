@@ -10,7 +10,7 @@ import { fabric } from 'fabric';
 import { BallDirective } from '../../directives/ball/ball.directive';
 import { PaddleDirective } from '../../directives/paddle/paddle.directive';
 import { ScoreDirective } from '../../directives/score/score.directive';
-import { GameService } from '../../services/game.service';
+import { GameService } from '../../services/game-service/game.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
