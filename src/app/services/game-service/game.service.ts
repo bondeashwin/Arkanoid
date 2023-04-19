@@ -160,10 +160,8 @@ export class GameService {
     paddleEdges: { left: number; right: number; top: number; bottom: number }
   ): boolean {
     return (
-      (ballCenter.x + ballRadius >= paddleEdges.left &&
-        ballCenter.x - ballRadius <= paddleEdges.right) ||
-      (ballCenter.x + ballRadius >= paddleEdges.left &&
-        ballCenter.x - ballRadius <= paddleEdges.right)
+      ballCenter.x + ballRadius >= paddleEdges.left &&
+      ballCenter.x - ballRadius <= paddleEdges.right
     );
   }
 
@@ -173,10 +171,8 @@ export class GameService {
     paddleEdges: { left: number; right: number; top: number; bottom: number }
   ): boolean {
     return (
-      (ballCenter.y + ballRadius >= paddleEdges.top &&
-        ballCenter.y - ballRadius <= paddleEdges.bottom) ||
-      (ballCenter.y + ballRadius >= paddleEdges.top &&
-        ballCenter.y - ballRadius <= paddleEdges.bottom)
+      ballCenter.y + ballRadius >= paddleEdges.top &&
+      ballCenter.y - ballRadius <= paddleEdges.bottom
     );
   }
 
