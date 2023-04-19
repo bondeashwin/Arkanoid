@@ -11,6 +11,9 @@ export class PaddleDirective {
   @Input() canvas: fabric.Canvas;
   @Output() paddle: EventEmitter<fabric.Rect> = new EventEmitter<fabric.Rect>();
 
+  private static readonly PADDLE_WIDTH_FACTOR = 0.015;
+  private static readonly PADDLE_HEIGHT_FACTOR = 0.15;
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -21,8 +24,9 @@ export class PaddleDirective {
   }
 
   private createPaddle(): fabric.Rect {
-    const paddleWidth = this.canvas.width * 0.015;
-    const paddleHeight = this.canvas.height * 0.15;
+    const paddleWidth = this.canvas.width * PaddleDirective.PADDLE_WIDTH_FACTOR;
+    const paddleHeight =
+      this.canvas.height * PaddleDirective.PADDLE_HEIGHT_FACTOR;
 
     const paddle = new fabric.Rect({
       width: paddleWidth,

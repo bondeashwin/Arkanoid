@@ -10,6 +10,8 @@ export class BallDirective implements OnInit {
   @Output() ball: EventEmitter<fabric.Circle> =
     new EventEmitter<fabric.Circle>();
 
+  private static readonly BALL_RADIUS_FACTOR = 0.01;
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -20,7 +22,9 @@ export class BallDirective implements OnInit {
   }
 
   private createBall(): fabric.Circle {
-    const ballRadius = Math.min(this.canvas.width, this.canvas.height) * 0.01;
+    const ballRadius =
+      Math.min(this.canvas.width, this.canvas.height) *
+      BallDirective.BALL_RADIUS_FACTOR;
 
     const ball = new fabric.Circle({
       left: this.canvas.width / 2,
